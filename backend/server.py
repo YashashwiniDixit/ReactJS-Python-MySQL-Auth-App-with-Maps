@@ -4,11 +4,14 @@ import MySQLdb.cursors
 import re
 import os 
 from dotenv import load_dotenv
+from flask_cors import CORS, cross_origin
+from flask import jsonify
 
 load_dotenv() 
  
 app = Flask(__name__)
- 
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
  
 app.secret_key = 'your secret key'
  
@@ -20,6 +23,7 @@ app.config['MYSQL_DB'] = str(os.getenv('SQL_DB'))
 mysql = MySQL(app)
  
 @app.route('/', methods=['GET', 'POST'])
+@cross_origin()
 def login():
     # Output message if something goes wrong...
     msg = ''
@@ -42,12 +46,12 @@ def login():
             session['username'] = account['username']
             # Redirect to home page
             msg='Logged in successfully !'
-            return (msg)
+            return {'msg':msg},200
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return (msg)
+    return {'msg':msg},400
 @app.route('/logout')
 def logout():
     # Remove session data, this will log the user out
@@ -84,8 +88,9 @@ def register():
             cursor.execute('INSERT INTO users VALUES (NULL, %s, %s, %s)', (username, password, email,))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
+            return jsonify(msg),200
     # Show registration form with message (if any)
-    return (msg)
+    return jsonify(msg),400
 @app.route('/home')
 def home():
     # Check if user is loggedin

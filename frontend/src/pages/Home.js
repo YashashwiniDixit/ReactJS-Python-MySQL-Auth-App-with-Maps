@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <>
       <Layout />
-      <h2>Home Page</h2>
-      <p>Welcome back,username!</p>
+      <h2>Map</h2>
       <Map />
     </>
   );

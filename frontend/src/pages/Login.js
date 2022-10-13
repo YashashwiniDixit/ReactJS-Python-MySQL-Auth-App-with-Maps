@@ -16,12 +16,12 @@ function Login() {
           },
         }
       );
-      console.log(res.status);
+      const resJson = await res.json();
       if (res.status === 200) {
-        console.log(res.status);
-        window.location.href = "/Home?username=" + username;
+        window.location.href = "/Home";
+        setMessage(resJson.msg);
       } else {
-        setMessage("Some error occured");
+        setMessage(resJson.msg);
       }
     } catch (err) {
       console.log(err);
@@ -31,13 +31,13 @@ function Login() {
     <div className="login">
       <h1>Login</h1>
       <div className="links">
-        <a href="/login" class="active">
+        <a href="/login" className="active">
           Login
         </a>
         <a href="/register">Register</a>
       </div>
-      <form onSubmit={handleSubmit}>
-        <label for="username">
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <label>
           <i className="fas fa-user"></i>
         </label>
         <input
@@ -47,7 +47,7 @@ function Login() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-        <label for="password">
+        <label>
           <i className="fas fa-lock"></i>
         </label>
         <input
