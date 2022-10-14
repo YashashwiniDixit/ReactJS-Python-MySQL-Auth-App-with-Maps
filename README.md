@@ -2,7 +2,7 @@
 
 ## ENV Location
 
-Store the env in the path `backend` . The format of env should be :
+Store the env in the path `\backend` . The format of env should be :
 
 ```
 SQL_HOST= HOSTIP
