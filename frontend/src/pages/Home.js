@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Layout />
-      <h2>Map</h2>
+      <h2>Map of the World</h2>
       <Map />
     </>
   );
