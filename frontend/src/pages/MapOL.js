@@ -19,11 +19,16 @@ function MapOL() {
         }),
       ],
       view: new View({
-        center: [0, 0],
-        zoom: 0,
+        center: [8112034.988467557, 2163800.7904075133],
+        zoom: 7,
+        maxZoom: 10,
+        minZoom: 5,
       }),
     });
     setMap(initialMap);
+    initialMap.on("click", (e) => {
+      console.log(e.coordinate);
+    });
   }, []);
 
   return (
